@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trending Stories - AI Pulse</title>
+    <title>Trending Stories • AI Pulse</title>
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
@@ -32,8 +32,24 @@
 
         <section class="posts-section">
             <div class="container">
-                <div class="posts-grid">
-                    <article class="post-card featured">
+                <div class="posts-toolbar" data-filter-target="#popular-posts-grid">
+                    <div class="search-field">
+                        <span aria-hidden="true">🔍</span>
+                        <input type="search" placeholder="Search trending posts..." aria-label="Search trending posts">
+                    </div>
+                    <div class="filter-chips">
+                        <button class="filter-chip active" data-filter="all" type="button">All</button>
+                        <button class="filter-chip" data-filter="frameworks" type="button">Frameworks</button>
+                        <button class="filter-chip" data-filter="research" type="button">Research</button>
+                        <button class="filter-chip" data-filter="product" type="button">Product</button>
+                        <button class="filter-chip" data-filter="tooling" type="button">Tooling</button>
+                        <button class="filter-chip" data-filter="strategy" type="button">Strategy</button>
+                        <button class="filter-chip" data-filter="infrastructure" type="button">Infrastructure</button>
+                    </div>
+                </div>
+
+                <div class="posts-grid" id="popular-posts-grid">
+                    <article class="post-card featured" data-category="frameworks">
                         <div class="post-meta">
                             <span class="post-date">September 20, 2024</span>
                             <span class="post-category">Frameworks</span>
@@ -44,7 +60,7 @@
                         <a class="read-more" href="../posts/popular/post1.html">Read Article</a>
                     </article>
 
-                    <article class="post-card featured">
+                    <article class="post-card featured" data-category="research">
                         <div class="post-meta">
                             <span class="post-date">September 12, 2024</span>
                             <span class="post-category">Research</span>
@@ -55,7 +71,7 @@
                         <a class="read-more" href="../posts/popular/post2.html">Read Article</a>
                     </article>
 
-                    <article class="post-card">
+                    <article class="post-card" data-category="product">
                         <div class="post-meta">
                             <span class="post-date">September 9, 2024</span>
                             <span class="post-category">Product</span>
@@ -66,7 +82,7 @@
                         <a class="read-more" href="../posts/popular/post3.html">Read Article</a>
                     </article>
 
-                    <article class="post-card">
+                    <article class="post-card" data-category="tooling">
                         <div class="post-meta">
                             <span class="post-date">September 5, 2024</span>
                             <span class="post-category">Tooling</span>
@@ -77,7 +93,7 @@
                         <a class="read-more" href="../posts/popular/post4.html">Read Article</a>
                     </article>
 
-                    <article class="post-card">
+                    <article class="post-card" data-category="strategy">
                         <div class="post-meta">
                             <span class="post-date">August 30, 2024</span>
                             <span class="post-category">Strategy</span>
@@ -88,7 +104,7 @@
                         <a class="read-more" href="../posts/popular/post5.html">Read Article</a>
                     </article>
 
-                    <article class="post-card">
+                    <article class="post-card" data-category="infrastructure">
                         <div class="post-meta">
                             <span class="post-date">August 18, 2024</span>
                             <span class="post-category">Infrastructure</span>
@@ -121,4 +137,3 @@
     <script src="../js/script.js"></script>
 </body>
 </html>
-

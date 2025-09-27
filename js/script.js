@@ -1,4 +1,6 @@
-﻿// Blog Website JavaScript Functionality
+﻿const THEME_STORAGE_KEY = 'ai-pulse-theme';
+
+// Blog Website JavaScript Functionality
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
@@ -6,6 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initNewsletterForm();
     initScrollEffects();
     initMobileMenu();
+    initThemeToggle();
+    initPostFilters();
+    initBackToTop();
+    initReadingProgress();
 });
 
 function initNavigation() {
@@ -141,11 +147,10 @@ function initNewsletterForm() {
 
 function initScrollEffects() {
     const header = document.querySelector('header');
+    const navList = document.querySelector('.top-nav ul');
     let lastScrollTop = 0;
 
     if (header) {
-        const navList = document.querySelector('.top-nav ul');
-
         window.addEventListener('scroll', () => {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const isScrollingDown = scrollTop > lastScrollTop;
@@ -158,8 +163,9 @@ function initScrollEffects() {
             }
 
             lastScrollTop = Math.max(scrollTop, 0);
-        });
+        }, { passive: true });
     }
+
     if (!('IntersectionObserver' in window)) {
         return;
     }
@@ -250,6 +256,177 @@ function initMobileMenu() {
     });
 }
 
+function initThemeToggle() {
+    const headerContainer = document.querySelector('header .container');
+    if (!headerContainer) {
+        return;
+    }
+
+    let toggle = headerContainer.querySelector('.theme-toggle');
+    if (!toggle) {
+        toggle = document.createElement('button');
+        toggle.className = 'theme-toggle';
+        toggle.type = 'button';
+        toggle.setAttribute('aria-label', 'Toggle color theme');
+        headerContainer.appendChild(toggle);
+    }
+
+    const applyTheme = (theme, persist = true) => {
+        document.body.dataset.theme = theme;
+        toggle.innerHTML = theme === 'light' ? '☀️' : '🌙';
+        toggle.setAttribute('aria-pressed', theme === 'light');
+        if (persist) {
+            localStorage.setItem(THEME_STORAGE_KEY, theme);
+        }
+    };
+
+    const systemPrefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    const initialTheme = savedTheme || (systemPrefersLight ? 'light' : 'dark');
+    applyTheme(initialTheme, Boolean(savedTheme));
+
+    toggle.addEventListener('click', () => {
+        const nextTheme = document.body.dataset.theme === 'light' ? 'dark' : 'light';
+        applyTheme(nextTheme, true);
+    });
+
+    if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (event) => {
+            if (!localStorage.getItem(THEME_STORAGE_KEY)) {
+                applyTheme(event.matches ? 'light' : 'dark', false);
+            }
+        });
+    }
+}
+
+function initPostFilters() {
+    const toolbars = document.querySelectorAll('.posts-toolbar');
+    if (!toolbars.length) {
+        return;
+    }
+
+    toolbars.forEach((toolbar) => {
+        const targetSelector = toolbar.dataset.filterTarget;
+        const grid = targetSelector ? document.querySelector(targetSelector) : toolbar.nextElementSibling;
+        if (!grid) {
+            return;
+        }
+
+        const cards = Array.from(grid.querySelectorAll('.post-card'));
+        if (!cards.length) {
+            return;
+        }
+
+        const chips = Array.from(toolbar.querySelectorAll('.filter-chip'));
+        const searchInput = toolbar.querySelector('input[type="search"]');
+        const emptyState = document.createElement('div');
+        emptyState.className = 'empty-state';
+        emptyState.textContent = 'No posts match your filters yet. Try a different category or keyword.';
+        emptyState.style.display = 'none';
+        grid.parentElement.appendChild(emptyState);
+
+        let activeCategory = toolbar.querySelector('.filter-chip.active')?.dataset.filter || 'all';
+        let currentQuery = '';
+
+        const applyFilters = () => {
+            const normalizedQuery = currentQuery.trim().toLowerCase();
+            let visibleCount = 0;
+
+            cards.forEach((card) => {
+                const cardCategory = (card.dataset.category || '').toLowerCase();
+                const matchesCategory = activeCategory === 'all' || cardCategory === activeCategory;
+                const matchesQuery = !normalizedQuery || card.textContent.toLowerCase().includes(normalizedQuery);
+                const isVisible = matchesCategory && matchesQuery;
+                card.style.display = isVisible ? '' : 'none';
+                if (isVisible) {
+                    visibleCount += 1;
+                }
+            });
+
+            emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+        };
+
+        chips.forEach((chip) => {
+            chip.addEventListener('click', () => {
+                chips.forEach((c) => c.classList.remove('active'));
+                chip.classList.add('active');
+                activeCategory = chip.dataset.filter || 'all';
+                applyFilters();
+            });
+        });
+
+        if (searchInput) {
+            searchInput.addEventListener('input', (event) => {
+                currentQuery = event.target.value;
+                applyFilters();
+            });
+        }
+
+        applyFilters();
+    });
+}
+
+function initBackToTop() {
+    let button = document.getElementById('backToTop');
+    if (!button) {
+        button = document.createElement('button');
+        button.id = 'backToTop';
+        button.type = 'button';
+        button.setAttribute('aria-label', 'Back to top');
+        button.innerHTML = '↑';
+        document.body.appendChild(button);
+    }
+
+    const toggleVisibility = () => {
+        if ((window.pageYOffset || document.documentElement.scrollTop) > 600) {
+            button.classList.add('show');
+        } else {
+            button.classList.remove('show');
+        }
+    };
+
+    button.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    window.addEventListener('scroll', toggleVisibility, { passive: true });
+    toggleVisibility();
+}
+
+function initReadingProgress() {
+    const article = document.querySelector('.post-content');
+    if (!article) {
+        return;
+    }
+
+    let bar = document.getElementById('reading-progress');
+    if (!bar) {
+        bar = document.createElement('div');
+        bar.id = 'reading-progress';
+        document.body.appendChild(bar);
+    }
+
+    const updateProgress = () => {
+        const articleTop = article.offsetTop;
+        const articleHeight = article.offsetHeight;
+        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        const viewportHeight = window.innerHeight;
+        const distance = Math.max(1, articleHeight - viewportHeight);
+
+        if (scrollPosition <= articleTop) {
+            bar.style.width = '0%';
+            return;
+        }
+
+        const progress = Math.min(1, Math.max(0, (scrollPosition - articleTop) / distance));
+        bar.style.width = ${(progress * 100).toFixed(2)}%;
+    };
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    updateProgress();
+}
+
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
@@ -262,11 +439,12 @@ function showNotification(message, type = 'info') {
     }
 
     const container = document.createElement('div');
-    container.className = `notification notification-${type}`;
-    container.innerHTML = `
-        <span>${message}</span>
+    container.className = 
+otification notification-;
+    container.innerHTML = 
+        <span></span>
         <button class="notification-close" aria-label="Dismiss notification">&times;</button>
-    `;
+    ;
 
     document.body.appendChild(container);
 
@@ -282,8 +460,5 @@ function showNotification(message, type = 'info') {
     container.querySelector('.notification-close').addEventListener('click', close);
     setTimeout(close, 5000);
 }
-
-
-
 
 
