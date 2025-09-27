@@ -603,9 +603,6 @@ footer .container {
     cursor: pointer;
 }
 
-.mobile-nav {
-    display: none !important;
-}
 
 @media (max-width: 900px) {
     header .container {
@@ -658,9 +655,6 @@ footer .container {
         pointer-events: auto;
     }
 
-    .mobile-nav {
-        display: flex !important;
-    }
 
     .hero {
         padding: 5.5rem 0 4rem;
@@ -704,4 +698,5 @@ footer .container {
         flex-wrap: wrap;
     }
 }
+
 
