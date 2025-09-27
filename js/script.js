@@ -144,11 +144,14 @@ function initScrollEffects() {
     let lastScrollTop = 0;
 
     if (header) {
+        const navList = document.querySelector('.top-nav ul');
+
         window.addEventListener('scroll', () => {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const isScrollingDown = scrollTop > lastScrollTop;
+            const menuOpen = navList && navList.classList.contains('mobile-open');
 
-            if (scrollTop > 160 && isScrollingDown) {
+            if (scrollTop > 160 && isScrollingDown && !menuOpen) {
                 header.style.transform = 'translateY(-110%)';
             } else {
                 header.style.transform = 'translateY(0)';
@@ -157,7 +160,6 @@ function initScrollEffects() {
             lastScrollTop = Math.max(scrollTop, 0);
         });
     }
-
     if (!('IntersectionObserver' in window)) {
         return;
     }
@@ -280,6 +282,8 @@ function showNotification(message, type = 'info') {
     container.querySelector('.notification-close').addEventListener('click', close);
     setTimeout(close, 5000);
 }
+
+
 
 
 
