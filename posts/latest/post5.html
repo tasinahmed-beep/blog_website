@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designing AI-Assisted Documentation Workflows • AI Pulse</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">AI Pulse</h1>
+            <nav class="top-nav">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../latest-posts.html">Latest</a></li>
+                    <li><a href="../popular-posts.html">Trending</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article class="post-content">
+            <div class="container">
+                <header class="post-header">
+                    <div class="post-meta">
+                        <span class="post-date">September 25, 2024</span>
+                        <span class="post-category">Case Study</span>
+                        <span class="post-reading-time">6 min read</span>
+                    </div>
+                    <h1>Designing AI-Assisted Documentation Workflows</h1>
+                    <p class="post-excerpt">A look at how one product team layered retrieval augmented generation and human review to keep customer docs always up to date.</p>
+                </header>
+
+                <div class="post-body">
+                    <figure class="media-placeholder" data-label="Documentation Flow">
+                        <figcaption>Add a diagram or screenshot of your documentation pipeline.</figcaption>
+                    </figure>
+
+                    <h2>The Challenge</h2>
+                    <p>Every release shipped with new edge cases, but the docs lagged behind. Support volume climbed, onboarding slowed, and the team needed leverage without hiring a technical writer.</p>
+
+                    <h2>The Workflow</h2>
+                    <ol>
+                        <li><strong>Source of truth:</strong> Engineering RFCs and product specs synced into a vector store.</li>
+                        <li><strong>Drafting agent:</strong> Generates updates for changed components using a prompt that enforces house style.</li>
+                        <li><strong>Reviewer queue:</strong> Human editors approve changes inside Notion, pushing final copy to the docs site.</li>
+                    </ol>
+
+                    <pre><code class="language-javascript">const prompt = `You are a precise documentation writer.
+
+Write updates for the component described below.
+
+Style:
+- Use second person voice
+- Surface breaking changes up top
+- Include a callout with migration steps`;</code></pre>
+
+                    <h2>Results</h2>
+                    <ul>
+                        <li>Documentation freshness improved from quarterly to daily.</li>
+                        <li>Onboarding tickets dropped 37% within two weeks.</li>
+                        <li>Writers now spend time on strategy instead of transcription.</li>
+                    </ul>
+
+                    <p>The win: humans still make the final call, but AI shoulders the rote drafting—and the docs finally keep up with the product.</p>
+                </div>
+
+                <footer class="post-footer">
+                    <div class="post-tags">
+                        <h4>Tags:</h4>
+                        <span class="tag">RAG</span>
+                        <span class="tag">Docs</span>
+                        <span class="tag">Workflows</span>
+                        <span class="tag">Case Study</span>
+                    </div>
+                    <div class="post-navigation">
+                        <a href="post6.html" class="btn btn-secondary">Next Article</a>
+                        <a href="post4.html" class="btn btn-secondary">Previous Article</a>
+                        <a href="../latest-posts.html" class="btn btn-primary">Back to Latest</a>
+                    </div>
+                </footer>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 AI Pulse. All rights reserved.</p>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../latest-posts.html">Latest</a></li>
+                    <li><a href="../popular-posts.html">Trending</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="../../js/script.js"></script>
+</body>
+</html>

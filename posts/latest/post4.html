@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluating LLM Quality with Open-Source Benchmarks • AI Pulse</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">AI Pulse</h1>
+            <nav class="top-nav">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../latest-posts.html">Latest</a></li>
+                    <li><a href="../popular-posts.html">Trending</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article class="post-content">
+            <div class="container">
+                <header class="post-header">
+                    <div class="post-meta">
+                        <span class="post-date">September 27, 2024</span>
+                        <span class="post-category">Evaluation</span>
+                        <span class="post-reading-time">9 min read</span>
+                    </div>
+                    <h1>Evaluating LLM Quality with Open-Source Benchmarks</h1>
+                    <p class="post-excerpt">Stop guessing. Use community-maintained datasets, metrics, and automation to understand how your model behaves in production scenarios.</p>
+                </header>
+
+                <div class="post-body">
+                    <figure class="media-placeholder" data-label="Benchmark Dashboard">
+                        <figcaption>Drop in a screenshot of your evaluation dashboard when ready.</figcaption>
+                    </figure>
+
+                    <h2>Why Evaluate with Open Data</h2>
+                    <p>Benchmarks like <strong>HELM</strong>, <strong>BigBench</strong>, and <strong>TruthfulQA</strong> capture diverse edge cases that reflect real user input. They also provide a shared language so teams can compare results and sanity check regressions.</p>
+
+                    <h2>Assemble Your Pipeline</h2>
+                    <ol>
+                        <li><strong>Choose task-aligned datasets:</strong> For support automation, combine MultiWOZ with your own anonymized transcripts.</li>
+                        <li><strong>Select evaluation metrics:</strong> BLEU and ROUGE for summarization, Exact Match and F1 for QA, toxicity scores for safety.</li>
+                        <li><strong>Run automated harnesses:</strong> Use <code>lm-eval</code> or <code>promptfoo</code> to execute tests locally or in CI.</li>
+                    </ol>
+
+                    <pre><code class="language-bash">promptfoo eval \
+  --prompts prompts.yaml \
+  --tests datasets/support_tickets.jsonl \
+  --providers openai:gpt-4o-mini anthropic:claude-3-5</code></pre>
+
+                    <h2>Track What Matters</h2>
+                    <p>Pair quantitative results with qualitative review. Create a rubric that includes:</p>
+                    <ul>
+                        <li><strong>Accuracy:</strong> Does the answer address the user&apos;s request?</li>
+                        <li><strong>Safety:</strong> Any disallowed content or hallucinations?</li>
+                        <li><strong>Grounding:</strong> Did the model cite the right documents?</li>
+                        <li><strong>Latency:</strong> How quickly did the response stream?</li>
+                    </ul>
+
+                    <h2>Automate Regression Detection</h2>
+                    <p>Integrate evaluation into your CI pipeline so every prompt or model change triggers the suite. Fail the build when deltas exceed thresholds.</p>
+
+                    <pre><code class="language-yaml"># .github/workflows/eval.yml
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run eval
+      - run: node scripts/compare-metrics.js --threshold 5
+</code></pre>
+
+                    <p>When evaluation is automated, model choice becomes a product decision rather than guesswork.</p>
+                </div>
+
+                <footer class="post-footer">
+                    <div class="post-tags">
+                        <h4>Tags:</h4>
+                        <span class="tag">Evaluation</span>
+                        <span class="tag">Benchmarks</span>
+                        <span class="tag">Automation</span>
+                        <span class="tag">Quality</span>
+                    </div>
+                    <div class="post-navigation">
+                        <a href="post5.html" class="btn btn-secondary">Next Article</a>
+                        <a href="post3.html" class="btn btn-secondary">Previous Article</a>
+                        <a href="../latest-posts.html" class="btn btn-primary">Back to Latest</a>
+                    </div>
+                </footer>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 AI Pulse. All rights reserved.</p>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../latest-posts.html">Latest</a></li>
+                    <li><a href="../popular-posts.html">Trending</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="../../js/script.js"></script>
+</body>
+</html>

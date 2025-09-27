@@ -1,20 +1,20 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Getting Started with Web Development - My Personal Blog</title>
+    <title>Shipping a Full-Stack AI Prototype in a Weekend • AI Pulse</title>
     <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
     <header>
         <div class="container">
-            <h1 class="logo">My Blog</h1>
+            <h1 class="logo">AI Pulse</h1>
             <nav class="top-nav">
                 <ul>
                     <li><a href="../../index.html">Home</a></li>
-                    <li><a href="../latest-posts.html">Latest Posts</a></li>
-                    <li><a href="../popular-posts.html">Popular Posts</a></li>
+                    <li><a href="../latest-posts.html">Latest</a></li>
+                    <li><a href="../popular-posts.html">Trending</a></li>
                     <li><a href="../about.html">About</a></li>
                     <li><a href="../contact.html">Contact</a></li>
                 </ul>
@@ -27,111 +27,107 @@
             <div class="container">
                 <header class="post-header">
                     <div class="post-meta">
-                        <span class="post-date">September 27, 2024</span>
-                        <span class="post-category">Technology</span>
-                        <span class="post-reading-time">5 min read</span>
+                        <span class="post-date">October 3, 2024</span>
+                        <span class="post-category">Tutorial</span>
+                        <span class="post-reading-time">8 min read</span>
                     </div>
-                    <h1>Getting Started with Web Development</h1>
-                    <p class="post-excerpt">Learn the fundamentals of web development and how to build your first website from scratch. This comprehensive guide covers HTML, CSS, and JavaScript basics.</p>
+                    <h1>Shipping a Full-Stack AI Prototype in a Weekend</h1>
+                    <p class="post-excerpt">A practical roadmap for validating an AI product in 48 hours: plan the UX, wire up a reliable backend, and capture learnings that guide your next sprint.</p>
                 </header>
 
                 <div class="post-body">
-                    <h2>Introduction</h2>
-                    <p>Web development is an exciting and rewarding field that allows you to create digital experiences for millions of users worldwide. Whether you're looking to start a new career, build personal projects, or expand your skill set, learning web development is a valuable investment in your future.</p>
+                    <figure class="media-placeholder" data-label="Prototype Blueprint">
+                        <figcaption>Add your hero image here to showcase the prototype or architecture.</figcaption>
+                    </figure>
 
-                    <p>In this comprehensive guide, we'll cover the fundamental technologies and concepts you need to know to get started with web development. By the end of this article, you'll have a solid foundation to build upon.</p>
+                    <h2>Scope Ruthlessly</h2>
+                    <p>Weekend prototypes win when you commit to <em>one</em> core outcome. Define the single user journey you want to validate and capture the assumptions you are testing. Everything else becomes a backlog item for Monday.</p>
 
-                    <h2>HTML: The Structure</h2>
-                    <p>HTML (HyperText Markup Language) is the backbone of every web page. It provides the structure and content that browsers render visually. Think of HTML as the skeleton of your website.</p>
-
-                    <h3>Basic HTML Structure</h3>
-                    <pre><code><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My First Web Page</title>
-</head>
-<body>
-    <h1>Hello, World!</h1>
-    <p>This is my first web page.</p>
-</body>
-</html></code></pre>
-
-                    <p>Every HTML document starts with a document type declaration and contains the basic structure shown above. The <code><head></code> section contains meta information about the page, while the <code><body></code> section contains the visible content.</p>
-
-                    <h2>CSS: The Styling</h2>
-                    <p>CSS (Cascading Style Sheets) is what makes your web pages look beautiful. It controls the visual presentation, including colors, fonts, layout, and responsive design.</p>
-
-                    <h3>Basic CSS Example</h3>
-                    <pre><code>body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
-}
-
-h1 {
-    color: #333;
-    text-align: center;
-    padding: 20px;
-}</code></pre>
-
-                    <p>CSS can be included in your HTML document in three ways: inline styles, internal stylesheets (within the HTML file), or external stylesheets (separate CSS files).</p>
-
-                    <h2>JavaScript: The Interactivity</h2>
-                    <p>JavaScript adds interactivity and dynamic behavior to your web pages. It's what makes modern websites feel alive and responsive to user actions.</p>
-
-                    <h3>Basic JavaScript Example</h3>
-                    <pre><code>document.addEventListener('DOMContentLoaded', function() {
-    const button = document.querySelector('button');
-    button.addEventListener('click', function() {
-        alert('Hello, World!');
-    });
-});</code></pre>
-
-                    <p>JavaScript runs in the browser and can manipulate HTML and CSS in real-time, respond to user events, and communicate with servers.</p>
-
-                    <h2>Getting Started: Your First Project</h2>
-                    <p>Now that you understand the basics, let's create your first web project. Follow these steps:</p>
-
-                    <ol>
-                        <li>Create a new folder for your project</li>
-                        <li>Create an <code>index.html</code> file with basic HTML structure</li>
-                        <li>Create a <code>styles.css</code> file for styling</li>
-                        <li>Create a <code>script.js</code> file for JavaScript functionality</li>
-                        <li>Link your CSS and JavaScript files to your HTML</li>
-                        <li>Open your HTML file in a web browser</li>
-                    </ol>
-
-                    <h2>Next Steps</h2>
-                    <p>Once you're comfortable with the basics, consider exploring:</p>
                     <ul>
-                        <li>Responsive design principles</li>
-                        <li>Modern CSS frameworks like Bootstrap or Tailwind CSS</li>
-                        <li>JavaScript frameworks like React, Vue, or Angular</li>
-                        <li>Backend development with Node.js, Python, or PHP</li>
-                        <li>Database integration and full-stack development</li>
+                        <li><strong>Desired outcome:</strong> e.g. “Users can upload a PDF and get a concise briefing in under 30 seconds.”</li>
+                        <li><strong>Constraints:</strong> 12 hours for build, 12 hours for polish, 24 hours for feedback loops.</li>
+                        <li><strong>Success signal:</strong> At least three test users say it solved a real problem.</li>
                     </ul>
 
-                    <h2>Conclusion</h2>
-                    <p>Web development is a journey of continuous learning. Start with the basics, build small projects, and gradually work your way up to more complex applications. Remember, every expert was once a beginner.</p>
+                    <h2>Assemble Your Stack</h2>
+                    <p>Choose tools that help you move fast <em>and</em> can scale later. Here&apos;s a stack that keeps the weekend friction low:</p>
 
-                    <p>The key to success is consistent practice and building real projects. Don't be afraid to experiment, make mistakes, and learn from them. Happy coding!</p>
+                    <ol>
+                        <li><strong>Backend:</strong> Node.js with Express or Fastify for quick routing. Pair with <code>langchain</code> or <code>llamaindex</code> for prompt orchestration.</li>
+                        <li><strong>Model access:</strong> OpenAI GPT-4o mini for balanced speed/quality, with fallbacks to an open-source model hosted on Replicate.</li>
+                        <li><strong>Vector store:</strong> Supabase pgvector or Pinecone serverless for RAG experiments.</li>
+                        <li><strong>Front end:</strong> Next.js or Vite + React with Tailwind for instant iteration.</li>
+                    </ol>
+
+                    <pre><code class="language-javascript">// Minimal Express server with OpenAI + Supabase
+import express from 'express';
+import { OpenAI } from 'openai';
+import { createClient } from '@supabase/supabase-js';
+
+const app = express();
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+
+app.post('/api/respond', async (req, res) => {
+    const { question } = req.body;
+    const embeddings = await openai.embeddings.create({
+        model: 'text-embedding-3-large',
+        input: question
+    });
+
+    const match = await supabase.rpc('match_documents', {
+        query_embedding: embeddings.data[0].embedding,
+        match_count: 5
+    });
+
+    const completion = await openai.chat.completions.create({
+        model: 'gpt-4o-mini',
+        messages: [
+            { role: 'system', content: 'You are a concise analyst.' },
+            { role: 'user', content: question },
+            { role: 'assistant', content: JSON.stringify(match.data) }
+        ]
+    });
+
+    res.json({ answer: completion.choices[0].message.content });
+});
+
+app.listen(3000, () => console.log('Prototype live on http://localhost:3000'));</code></pre>
+
+                    <h2>Prototype in Three Loops</h2>
+                    <p>Organize the weekend into tight loops so you are never guessing what to do next.</p>
+
+                    <h3>Loop 1 · Foundations</h3>
+                    <p>Lock the UX skeleton, connect your data source, and verify end-to-end flow with mock responses. Aim for working plumbing within six hours.</p>
+
+                    <h3>Loop 2 · Real Data</h3>
+                    <p>Swap in live model calls, configure observability (console logs + PostHog, even locally), and add loading/error states. Share the build with a trusted user for the first impressions.</p>
+
+                    <h3>Loop 3 · Insights</h3>
+                    <p>Capture every question users ask, time the responses, and track failure modes. This feedback <strong>is</strong> the prototype. Summarize it in a doc before shipping the link to stakeholders.</p>
+
+                    <h2>Leave with Clear Next Steps</h2>
+                    <p>Wrap the weekend by grading the experiment against your success signal. Document:</p>
+                    <ul>
+                        <li>The one metric that improved most.</li>
+                        <li>Top three issues to fix before inviting more testers.</li>
+                        <li>What infra debt you knowingly took on.</li>
+                    </ul>
+
+                    <p>Send that summary email. Congratulations—you now have evidence, momentum, and a concrete list for the next sprint.</p>
                 </div>
 
                 <footer class="post-footer">
                     <div class="post-tags">
                         <h4>Tags:</h4>
-                        <span class="tag">HTML</span>
-                        <span class="tag">CSS</span>
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">Web Development</span>
-                        <span class="tag">Beginners</span>
+                        <span class="tag">Prototyping</span>
+                        <span class="tag">LLM Apps</span>
+                        <span class="tag">Stack</span>
+                        <span class="tag">Product</span>
                     </div>
-
                     <div class="post-navigation">
-                        <a href="post2.html" class="btn btn-secondary">Next Post</a>
-                        <a href="../latest-posts.html" class="btn btn-primary">Back to Latest Posts</a>
+                        <a href="post2.html" class="btn btn-secondary">Next Article</a>
+                        <a href="../latest-posts.html" class="btn btn-primary">Back to Latest</a>
                     </div>
                 </footer>
             </div>
@@ -140,12 +136,12 @@ h1 {
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 My Personal Blog. All rights reserved.</p>
+            <p>&copy; 2024 AI Pulse. All rights reserved.</p>
             <nav class="footer-nav">
                 <ul>
                     <li><a href="../../index.html">Home</a></li>
-                    <li><a href="../latest-posts.html">Latest Posts</a></li>
-                    <li><a href="../popular-posts.html">Popular Posts</a></li>
+                    <li><a href="../latest-posts.html">Latest</a></li>
+                    <li><a href="../popular-posts.html">Trending</a></li>
                     <li><a href="../about.html">About</a></li>
                     <li><a href="../contact.html">Contact</a></li>
                 </ul>
