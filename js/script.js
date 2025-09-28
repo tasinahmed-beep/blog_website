@@ -1,4 +1,4 @@
-﻿const THEME_STORAGE_KEY = 'ai-pulse-theme';
+const THEME_STORAGE_KEY = 'ai-pulse-theme';
 
 // Blog Website JavaScript Functionality
 
@@ -419,7 +419,7 @@ function initReadingProgress() {
         }
 
         const progress = Math.min(1, Math.max(0, (scrollPosition - articleTop) / distance));
-        bar.style.width = ${(progress * 100).toFixed(2)}%;
+        bar.style.width = `${(progress * 100).toFixed(2)}%`;
     };
 
     window.addEventListener('scroll', updateProgress, { passive: true });
@@ -439,12 +439,11 @@ function showNotification(message, type = 'info') {
     }
 
     const container = document.createElement('div');
-    container.className = 
-otification notification-;
-    container.innerHTML = 
-        <span></span>
+    container.className = `notification notification-${type}`;
+    container.innerHTML = `
+        <span>${message}</span>
         <button class="notification-close" aria-label="Dismiss notification">&times;</button>
-    ;
+    `;
 
     document.body.appendChild(container);
 
