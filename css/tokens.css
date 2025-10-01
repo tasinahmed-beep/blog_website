@@ -1,0 +1,112 @@
+/* Design Tokens */
+:root {
+    /* Color Palette */
+    --color-primary-50: #f0f9ff;
+    --color-primary-100: #e0f2fe;
+    --color-primary-200: #bae6fd;
+    --color-primary-300: #7dd3fc;
+    --color-primary-400: #38bdf8;
+    --color-primary-500: #0ea5e9;
+    --color-primary-600: #0284c7;
+    --color-primary-700: #0369a1;
+    --color-primary-800: #075985;
+    --color-primary-900: #0c4a6e;
+
+    /* Neutral Colors */
+    --color-neutral-50: #f8fafc;
+    --color-neutral-100: #f1f5f9;
+    --color-neutral-200: #e2e8f0;
+    --color-neutral-300: #cbd5e1;
+    --color-neutral-400: #94a3b8;
+    --color-neutral-500: #64748b;
+    --color-neutral-600: #475569;
+    --color-neutral-700: #334155;
+    --color-neutral-800: #1e293b;
+    --color-neutral-900: #0f172a;
+
+    /* Semantic Colors */
+    --color-success-light: #86efac;
+    --color-success: #22c55e;
+    --color-success-dark: #15803d;
+    
+    --color-warning-light: #fde68a;
+    --color-warning: #f59e0b;
+    --color-warning-dark: #b45309;
+    
+    --color-error-light: #fca5a5;
+    --color-error: #ef4444;
+    --color-error-dark: #b91c1c;
+
+    /* Typography */
+    --font-family-heading: 'Inter', system-ui, sans-serif;
+    --font-family-body: 'Inter', system-ui, sans-serif;
+    --font-family-mono: 'JetBrains Mono', monospace;
+
+    /* Font Sizes */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+
+    /* Font Weights */
+    --font-thin: 100;
+    --font-extralight: 200;
+    --font-light: 300;
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+    --font-extrabold: 800;
+    --font-black: 900;
+
+    /* Line Heights */
+    --leading-none: 1;
+    --leading-tight: 1.25;
+    --leading-snug: 1.375;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.625;
+    --leading-loose: 2;
+
+    /* Letter Spacing */
+    --tracking-tighter: -0.05em;
+    --tracking-tight: -0.025em;
+    --tracking-normal: 0;
+    --tracking-wide: 0.025em;
+    --tracking-wider: 0.05em;
+    --tracking-widest: 0.1em;
+
+    /* Theme Colors - Light */
+    --color-bg: var(--color-neutral-50);
+    --color-surface: white;
+    --color-surface-alt: var(--color-neutral-100);
+    --color-text: var(--color-neutral-900);
+    --color-text-alt: var(--color-neutral-600);
+    --color-border: var(--color-neutral-200);
+    --color-primary: var(--color-primary-600);
+    --color-primary-light: var(--color-primary-400);
+    --color-primary-dark: var(--color-primary-800);
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+    --color-bg: var(--color-neutral-900);
+    --color-surface: var(--color-neutral-800);
+    --color-surface-alt: var(--color-neutral-700);
+    --color-text: var(--color-neutral-50);
+    --color-text-alt: var(--color-neutral-400);
+    --color-border: var(--color-neutral-700);
+    --color-primary: var(--color-primary-400);
+    --color-primary-light: var(--color-primary-300);
+    --color-primary-dark: var(--color-primary-600);
+
+    /* Dark Theme Specific Shadows */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+    --shadow-lg: 0 10px 20px rgba(0,0,0,0.4);
+    --shadow-xl: 0 20px 40px rgba(0,0,0,0.5);
+}

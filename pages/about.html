@@ -4,21 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About - AI Pulse</title>
+    <!-- CSS Base and Structure -->
+    <link rel="stylesheet" href="../css/tokens.css">
+    <link rel="stylesheet" href="../css/structure.css">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/shared-layouts.css">
+    <link rel="stylesheet" href="../css/features.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/enhanced.css">
+    <link rel="stylesheet" href="../css/theme-animations.css">
+    <link rel="stylesheet" href="../css/advanced-features.css">
 </head>
 <body>
     <header>
         <div class="container">
-            <h1 class="logo">AI Pulse</h1>
+            <h1 class="logo glitch" data-text="AI Pulse">AI Pulse</h1>
             <nav class="top-nav">
                 <ul>
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="latest-posts.html">Latest</a></li>
-                    <li><a href="popular-posts.html">Trending</a></li>
-                    <li><a href="about.html" class="active">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="../index.html" class="animated-link">Home</a></li>
+                    <li><a href="latest-posts.html" class="animated-link">Latest</a></li>
+                    <li><a href="popular-posts.html" class="animated-link">Trending</a></li>
+                    <li><a href="about.html" class="active animated-link">About</a></li>
+                    <li><a href="contact.html" class="animated-link">Contact</a></li>
                 </ul>
             </nav>
+            <button class="theme-switch" aria-label="Toggle theme"></button>
         </div>
     </header>
 
@@ -30,10 +40,10 @@
             </div>
         </section>
 
-        <section class="about-content">
+        <section class="page-content">
             <div class="container">
-                <div class="about-grid">
-                    <div class="about-text">
+                <div class="article-layout">
+                    <div class="article-main content-section">
                         <h3>The Mission</h3>
                         <p>AI changes faster than any other field I have worked in. Shipping responsibly means pairing curiosity with tight feedback loops. AI Pulse exists to translate breakthroughs into practical workflows you can use today.</p>
 
@@ -53,8 +63,8 @@
                         <p>If you have a topic you want explored or a product you&apos;d like help evaluating, reach out. The best ideas always start with a conversation.</p>
                     </div>
 
-                    <aside class="about-sidebar">
-                        <div class="about-card">
+                    <aside class="article-sidebar">
+                        <div class="list-item">
                             <h4>Quick Facts</h4>
                             <ul>
                                 <li><strong>Role:</strong> Product engineer &amp; AI strategist</li>
@@ -66,8 +76,8 @@
 
                         <div class="about-card">
                             <h4>Stack &amp; Skills</h4>
-                            <div class="skills-list">
-                                <span class="skill-tag">Node.js</span>
+                            <div class="category-tags">
+                                <span class="category-tag">Node.js</span>
                                 <span class="skill-tag">TypeScript</span>
                                 <span class="skill-tag">Python</span>
                                 <span class="skill-tag">LangChain</span>
@@ -100,7 +110,11 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="../js/script.js"></script>
+    <script src="../js/features.js"></script>
+    <script src="../js/interactions.js"></script>
+    <script src="../js/advanced-interactions.js"></script>
 </body>
 </html>
 

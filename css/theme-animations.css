@@ -1,0 +1,239 @@
+/* Theme-specific Animations */
+
+/* Dark Theme Specific */
+[data-theme="dark"] .theme-animate {
+    --glow-color: var(--color-primary);
+    --shadow-intensity: 0.8;
+}
+
+/* Light Theme Specific */
+[data-theme="light"] .theme-animate {
+    --glow-color: var(--color-primary-dark);
+    --shadow-intensity: 0.2;
+}
+
+/* Matrix Rain Effect (Dark Theme) */
+[data-theme="dark"] .matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.1;
+}
+
+.matrix-char {
+    color: var(--color-primary);
+    font-size: 14px;
+    font-family: monospace;
+    position: absolute;
+    animation: matrix-fall linear infinite;
+}
+
+@keyframes matrix-fall {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+/* Light Theme Floating Elements */
+[data-theme="light"] .float-element {
+    animation: light-float 3s ease-in-out infinite;
+}
+
+@keyframes light-float {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.02);
+    }
+}
+
+/* Dark Theme Glow Pulse */
+[data-theme="dark"] .glow-pulse {
+    animation: dark-glow 2s ease-in-out infinite;
+    box-shadow: 0 0 10px var(--glow-color);
+}
+
+@keyframes dark-glow {
+    0%, 100% {
+        box-shadow: 0 0 10px var(--glow-color);
+    }
+    50% {
+        box-shadow: 0 0 30px var(--glow-color);
+    }
+}
+
+/* Theme Transition Effects */
+.theme-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.theme-transition.active {
+    opacity: 1;
+}
+
+/* Theme Switch Ripple */
+.theme-switch-ripple {
+    position: fixed;
+    background: var(--color-primary);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: theme-ripple 1s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes theme-ripple {
+    to {
+        transform: translate(-50%, -50%) scale(4);
+        opacity: 0;
+    }
+}
+
+/* Constellation Effect (Dark Theme) */
+[data-theme="dark"] .constellation {
+    position: relative;
+}
+
+[data-theme="dark"] .constellation::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--color-primary);
+    box-shadow: 
+        100px 200px var(--color-primary),
+        200px 100px var(--color-primary),
+        300px 300px var(--color-primary),
+        150px 250px var(--color-primary);
+    animation: twinkle 4s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+/* Light Theme Paper Effect */
+[data-theme="light"] .paper-effect {
+    background: var(--color-surface);
+    box-shadow: 
+        0 1px 1px rgba(0,0,0,0.05),
+        0 2px 2px rgba(0,0,0,0.05),
+        0 4px 4px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme="light"] .paper-effect:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 2px 2px rgba(0,0,0,0.05),
+        0 4px 4px rgba(0,0,0,0.05),
+        0 8px 8px rgba(0,0,0,0.05);
+}
+
+/* Theme-aware Gradients */
+.theme-gradient {
+    background: linear-gradient(
+        135deg,
+        var(--gradient-start, var(--color-primary)),
+        var(--gradient-end, var(--color-secondary))
+    );
+    background-size: 200% 200%;
+    animation: gradient-shift 5s ease infinite;
+}
+
+[data-theme="dark"] .theme-gradient {
+    --gradient-start: var(--color-primary);
+    --gradient-end: var(--color-primary-dark);
+}
+
+[data-theme="light"] .theme-gradient {
+    --gradient-start: var(--color-secondary);
+    --gradient-end: var(--color-primary);
+}
+
+@keyframes gradient-shift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Theme-aware Border Glow */
+.border-glow {
+    position: relative;
+}
+
+.border-glow::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+        45deg,
+        var(--border-start, var(--color-primary)),
+        var(--border-end, var(--color-secondary))
+    );
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+[data-theme="dark"] .border-glow {
+    --border-start: var(--color-primary);
+    --border-end: var(--color-secondary);
+}
+
+[data-theme="light"] .border-glow {
+    --border-start: var(--color-primary-dark);
+    --border-end: var(--color-primary);
+}
+
+/* Theme Switch Animation */
+.theme-switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    background: var(--color-surface-alt);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-switch::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+[data-theme="light"] .theme-switch::before {
+    transform: translateX(30px);
+}
