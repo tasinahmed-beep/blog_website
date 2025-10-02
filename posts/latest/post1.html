@@ -50,58 +50,157 @@
                     </ul>
 
                     <h2>Assemble Your Stack</h2>
-                    <p>Choose tools that help you move fast <em>and</em> can scale later. Here&apos;s a stack that keeps the weekend friction low:</p>
+                    <p>Choose tools that help you move fast <em>and</em> can scale later. Here&apos;s a modern stack optimized for 2025:</p>
 
                     <ol>
-                        <li><strong>Backend:</strong> Node.js with Express or Fastify for quick routing. Pair with <code>langchain</code> or <code>llamaindex</code> for prompt orchestration.</li>
-                        <li><strong>Model access:</strong> OpenAI GPT-4o mini for balanced speed/quality, with fallbacks to an open-source model hosted on Replicate.</li>
-                        <li><strong>Vector store:</strong> Supabase pgvector or Pinecone serverless for RAG experiments.</li>
-                        <li><strong>Front end:</strong> Next.js or Vite + React with Tailwind for instant iteration.</li>
+                        <li><strong>Backend:</strong> Next.js 15 App Router with Server Actions for type-safe API routes and automatic caching.</li>
+                        <li><strong>Model access:</strong> OpenAI GPT-4o for best quality, with streaming support for real-time responses.</li>
+                        <li><strong>Vector store:</strong> Supabase pgvector or Pinecone serverless for RAG with built-in hybrid search.</li>
+                        <li><strong>Front end:</strong> Next.js 15 with Server Components for automatic data fetching and React 19 for concurrent rendering.</li>
                     </ol>
 
-                    <pre><code class="language-javascript">// Minimal Express server with OpenAI + Supabase
-import express from 'express';
-import { OpenAI } from 'openai';
+                    <pre><code class="language-typescript">// Modern Next.js 15 App Router API Route (app/api/chat/route.ts)
+import { NextRequest, NextResponse } from 'next/server';
+import OpenAI from 'openai';
 import { createClient } from '@supabase/supabase-js';
 
-const app = express();
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-
-app.post('/api/respond', async (req, res) => {
-    const { question } = req.body;
-    const embeddings = await openai.embeddings.create({
-        model: 'text-embedding-3-large',
-        input: question
-    });
-
-    const match = await supabase.rpc('match_documents', {
-        query_embedding: embeddings.data[0].embedding,
-        match_count: 5
-    });
-
-    const completion = await openai.chat.completions.create({
-        model: 'gpt-4o-mini',
-        messages: [
-            { role: 'system', content: 'You are a concise analyst.' },
-            { role: 'user', content: question },
-            { role: 'assistant', content: JSON.stringify(match.data) }
-        ]
-    });
-
-    res.json({ answer: completion.choices[0].message.content });
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
-app.listen(3000, () => console.log('Prototype live on http://localhost:3000'));</code></pre>
+const supabase = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_KEY!
+);
+
+export async function POST(req: NextRequest) {
+  try {
+    const { question } = await req.json();
+
+    // Generate embeddings
+    const embeddings = await openai.embeddings.create({
+      model: 'text-embedding-3-large',
+      input: question,
+    });
+
+    // Vector search with Supabase
+    const { data: matches } = await supabase.rpc('match_documents', {
+      query_embedding: embeddings.data[0].embedding,
+      match_count: 5,
+    });
+
+    // Stream the response for better UX
+    const stream = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [
+        { role: 'system', content: 'You are a concise AI analyst.' },
+        { role: 'user', content: `Context: ${JSON.stringify(matches)}\n\nQuestion: ${question}` },
+      ],
+      stream: true,
+    });
+
+    // Return streaming response
+    return new Response(
+      new ReadableStream({
+        async start(controller) {
+          for await (const chunk of stream) {
+            const text = chunk.choices[0]?.delta?.content || '';
+            controller.enqueue(new TextEncoder().encode(text));
+          }
+          controller.close();
+        },
+      }),
+      {
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Cache-Control': 'no-cache',
+        },
+      }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Failed to process request' },
+      { status: 500 }
+    );
+  }
+}</code></pre>
 
                     <h2>Prototype in Three Loops</h2>
                     <p>Organize the weekend into tight loops so you are never guessing what to do next.</p>
 
                     <h3>Loop 1 · Foundations</h3>
                     <p>Lock the UX skeleton, connect your data source, and verify end-to-end flow with mock responses. Aim for working plumbing within six hours.</p>
+                    
+                    <pre><code class="language-typescript">// Modern Next.js 15 Server Component (app/chat/page.tsx)
+import { Suspense } from 'react';
+
+// Server Component - runs on server, fetches data automatically
+async function getInitialData() {
+  const res = await fetch('https://api.example.com/data', {
+    cache: 'no-store', // Dynamic data on every request
+  });
+  return res.json();
+}
+
+export default async function ChatPage() {
+  const initialData = await getInitialData();
+
+  return (
+    <div>
+      <h1>AI Chat Prototype</h1>
+      <Suspense fallback={<div>Loading...</div>}>
+        <ChatInterface initialData={initialData} />
+      </Suspense>
+    </div>
+  );
+}</code></pre>
 
                     <h3>Loop 2 · Real Data</h3>
-                    <p>Swap in live model calls, configure observability (console logs + PostHog, even locally), and add loading/error states. Share the build with a trusted user for the first impressions.</p>
+                    <p>Swap in live model calls, configure observability (console logs + PostHog, even locally), and add loading/error states. Use streaming for better UX:</p>
+                    
+                    <pre><code class="language-typescript">// Client Component with streaming (components/ChatInterface.tsx)
+'use client';
+
+import { useState } from 'react';
+
+export default function ChatInterface({ initialData }) {
+  const [response, setResponse] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function handleSubmit(question: string) {
+    setIsLoading(true);
+    setResponse('');
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question }),
+      });
+
+      // Stream the response chunk by chunk
+      const reader = res.body?.getReader();
+      const decoder = new TextDecoder();
+
+      while (true) {
+        const { done, value } = await reader!.read();
+        if (done) break;
+        
+        const chunk = decoder.decode(value);
+        setResponse((prev) => prev + chunk);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  return (
+    <div className="chat-interface">
+      {/* Your chat UI here */}
+      <div className="response">{response}</div>
+    </div>
+  );
+}</code></pre>
 
                     <h3>Loop 3 · Insights</h3>
                     <p>Capture every question users ask, time the responses, and track failure modes. This feedback <strong>is</strong> the prototype. Summarize it in a doc before shipping the link to stakeholders.</p>
