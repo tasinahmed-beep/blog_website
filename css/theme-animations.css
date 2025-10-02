@@ -213,6 +213,7 @@
 
 /* Theme Switch Animation */
 .theme-switch {
+    display: none !important;
     position: relative;
     width: 60px;
     height: 30px;

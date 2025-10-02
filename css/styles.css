@@ -111,6 +111,7 @@ header .container {
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
+    position: relative;
 }
 
 .logo {
@@ -149,10 +150,17 @@ header .container {
     background: none;
     border: none;
     color: var(--color-text);
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     cursor: pointer;
-    padding: 0.25rem 0.4rem;
+    padding: 0.5rem;
     border-radius: var(--radius-sm);
+    transition: var(--transition);
+    z-index: 100;
+}
+
+.mobile-menu-button:hover {
+    background: rgba(91, 141, 239, 0.18);
+    color: var(--color-primary);
 }
 
 .hero {
@@ -776,38 +784,56 @@ footer .container {
 
 @media (max-width: 768px) {
     header .container {
-        flex-wrap: wrap;
-        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .logo {
+        font-size: 1.3rem;
     }
 
     .mobile-menu-button {
         display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .top-nav {
+        order: 3;
+        width: 100%;
     }
 
     .top-nav ul {
         position: absolute;
-        top: calc(var(--header-height) + 12px);
-        right: 4vw;
-        left: 4vw;
-        padding: 1.2rem;
+        top: var(--header-height);
+        right: 0;
+        left: 0;
+        padding: 1.5rem;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 0.75rem;
-        border-radius: var(--radius-md);
-        background: rgba(11, 16, 33, 0.92);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        align-items: stretch;
+        gap: 0.5rem;
+        border-radius: 0;
+        background: var(--color-surface);
+        border-top: 1px solid var(--color-border);
         box-shadow: var(--shadow-soft);
-        transform-origin: top right;
-        transform: scaleY(0.6);
+        transform-origin: top;
+        transform: scaleY(0);
         opacity: 0;
         pointer-events: none;
-        transition: 0.25s ease;
+        transition: all 0.3s ease;
+        z-index: 99;
     }
 
     .top-nav ul.mobile-open {
         opacity: 1;
         transform: scaleY(1);
         pointer-events: auto;
+    }
+
+    .top-nav a {
+        display: block;
+        padding: 0.75rem 1rem;
+        width: 100%;
+        text-align: left;
     }
 
 
@@ -835,8 +861,18 @@ footer .container {
         padding: 3.5rem 0;
     }
 
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    .container {
+        width: 95vw;
+    }
+
     .btn {
         width: 100%;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.85rem;
     }
 
     .post-meta {
@@ -909,7 +945,7 @@ body[data-theme='light'] footer {
 }
 
 .theme-toggle {
-    display: inline-flex;
+    display: none !important;
     align-items: center;
     justify-content: center;
     width: 2.6rem;
