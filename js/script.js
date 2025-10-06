@@ -1,4 +1,4 @@
-﻿const THEME_STORAGE_KEY = 'ai-pulse-theme';
+const THEME_STORAGE_KEY = 'ai-pulse-theme';
 
 // Blog Website JavaScript Functionality
 
